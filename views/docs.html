@@ -1,0 +1,153 @@
+<!doctype html>
+<html>
+<head>
+    <title>{{.title}} - Gow Web Framework documents</title>
+    <meta name="keywords" content="gow,golang,go语言框架,golang web 框架" />
+    <meta name="description" content="gow 是一个基于gin框架思想和beego框架中html模板处理机制，封装的一个go web框架。可用于开发Web API和Web网站项目。" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js?v={{.version}}"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.bundle.min.js?v={{.version}}"></script>
+    <script src="/static/js/prism.js?v={{.version}}"></script>
+    <script src="/static/js/tabler.min.js?v={{.version}}"></script>
+    <link href="/static/css/tabler.css?v={{.version}}" rel="stylesheet"/>
+    <link href="/static/css/gow.css?v={{.version}}" rel="stylesheet"/>
+    <link href="/static/css/md.css?v={{.version}}" rel="stylesheet"/>
+    <link rel="stylesheet" href="/static/css/prism.css?v={{.version}}">
+  <head>
+</head>
+<body>
+<div class="page">
+    <div class="flex-fill">
+        <div class="header">
+            <div class="container">
+                <div class="d-flex">
+                    <a class="header-brand" href="/">
+                        <img src="/static/img/logo_s.png" alt="gow logo">
+                    </a>
+                    <div class="d-flex order-lg-2 ml-auto">
+                        <div class="nav-item d-none d-md-flex">
+                            <a href="https://github.com/gkzy/gow" class="btn btn-sm btn-outline-primary" target="_blank">Source code</a>
+                        </div>
+                    </div>
+                    <a href="#" class="header-toggler d-lg-none ml-3 ml-lg-0" data-toggle="collapse" data-target="#headerMenuCollapse">
+                        <span class="header-toggler-icon"></span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="header collapse d-lg-flex p-0" id="headerMenuCollapse">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-3 ml-auto">
+
+                    </div>
+                    <div class="col-lg order-lg-first">
+                        <ul class="nav nav-tabs border-0 flex-column flex-lg-row">
+                            <li class="nav-item">
+                                <a href="/" class="nav-link"><i class="fe fe-home"></i> 首页</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="/docs/start" class="nav-link active"><i class="fe fe-file-text"></i> 文档</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="my-3 my-md-5">
+            <div class="container">
+                <div class="page-header">
+                    <h1 class="page-title">
+                        {{.title}}
+                    </h1>
+                </div>
+                <div class="row">
+                    <div class="col-lg-3 order-lg-1 mb-4">
+                        <a href="https://github.com/gkzy/gow" class="btn btn-block btn-primary mb-6" target="_blank">
+                            <i class="fe fe-github mr-2"></i>Browse source code
+                        </a>
+                        <div class="list-group list-group-transparent mb-0">
+                           {{str2html .menu}}
+                        </div>
+                    </div>
+                    <div class="col-lg-9">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="markdown-body line-number">
+                                    {{str2html .content}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="row">
+                        <div class="col-6 col-md-2">
+                            <ul class="list-unstyled mb-0">
+                                <li><a href="https://gow.22v.net">Gow</a></li>
+                                <li><a href="https://22v.net/">Sam blog</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-6 col-md-2">
+                            <ul class="list-unstyled mb-0">
+                                <li><a href="https://www.gk100.com">高考100网</a></li>
+                                <li><a href="https://www.ymzy.cn">圆梦志愿</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-6 col-md-2">
+                            <ul class="list-unstyled mb-0">
+                                <li><a href="https://gocn.vip">Go中国技术社区</a></li>
+                                <li><a href="https://beego.me">Beego官网</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-6 col-md-2">
+                            <ul class="list-unstyled mb-0">
+                                <li><a href="https://gin-gonic.com/">Gin官网</a></li>
+                                <li><a href="https://gogs.io/">Gogs</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-6 col-md-2">
+                            <ul class="list-unstyled mb-0">
+                                <li><a href="https://github.com/flike/kingshard">kingshard</a></li>
+                                <li><a href="https://gorm.io/">Gorm</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer class="footer">
+        <div class="container">
+            <div class="row align-items-center flex-row-reverse">
+                <div class="col-auto ml-lg-auto">
+                    <div class="row align-items-center">
+                        <div class="col-auto">
+                            <ul class="list-inline list-inline-dots mb-0">
+                                <li class="list-inline-item"><a href="/docs/start">文档</a></li>
+                                <li class="list-inline-item"><a href="/">首页</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-auto">
+                            <a href="https://github.com/gkzy/gow" class="btn btn-outline-primary btn-sm">Source code</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-lg-auto mt-3 mt-lg-0 text-center">
+                    Copyright © 2020 <a href="https://22v.net">22v.net</a>. Theme by <a href="https://codecalm.net" target="_blank">codecalm.net</a> All rights reserved.
+                </div>
+            </div>
+        </div>
+    </footer>
+</div>
+
+</body>
+</html>

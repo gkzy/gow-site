@@ -1,0 +1,24 @@
+# gow-site .ignore
+
+# directory
+
+node_modules/
+.idea/
+test/
+.vscode/
+dist/
+build/
+vendor/
+logs/
+.sass-cache/
+
+
+# files
+*.exe
+*.exe~
+*.log
+*.http
+test*.sh
+gow-site
+# macos
+.DS_Store
