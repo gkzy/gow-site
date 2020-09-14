@@ -1,7 +1,9 @@
-**gow** 是一个基于gin框架思想和beego框架中html模板处理机制，封装的一个go web框架。可用于开发Web API和Web网站项目。
 
+# gow
 
-#### 项目地址：
+gow 是基于gin的HTTP框架，在gin的基础上，做了更适合的html模板封装和数据输出。可用于开发Web API和Web网站项目
+
+## 项目地址：
 
 [https://github.com/gkzy/gow](https://github.com/gkzy/gow)
 
@@ -12,9 +14,23 @@
 
 ---
 
-###  快速开始
+##  快速开始
 
-```shell
+### 安装golang
+
+```sh
+https://golang.org/dl/
+```
+
+### 安装gow
+
+```sh
+go get github.com/gkzy/gow
+```
+
+### 开始一个新项目
+
+```sh
 mkdir hello
 cd hello
 ```
@@ -23,11 +39,9 @@ cd hello
 go mod init
 ```
 
-```shell
-go get github.com/gkzy/gow
-```
 
-##### 创建 main.go
+
+#### 创建 main.go
 
 ```go
 package main
@@ -49,19 +63,20 @@ func main() {
     //default :8080
     r.Run()
 
+    //r.Run(9090)
     //r.Run(":9090") 
     //r.Run("127.0.0.1:9090")
 }
 ```
 
-#####  编译和运行
+####  编译和运行
 ```shell
-go build && ./hello
-或
 go run main.go
+或
+go build && ./hello
 ```
 
-#####  访问地址
+####  访问地址
 
 ```shell
 浏览器访问：http://127.0.0.1:8080

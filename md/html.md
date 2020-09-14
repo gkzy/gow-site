@@ -1,7 +1,9 @@
+
+## 做个网站
+
 包括HTML模板文件处理和静态资源处理
 
-
-##### 目录结构
+### 目录结构
 
 ```
 PROJECT_NAME
@@ -19,19 +21,66 @@ PROJECT_NAME
 ├──main.go
 ```
 
-#####  设置模板目录
+###  设置模板目录
 
 ```go
+r := gow.Default()
 r.SetView("views")
 ```
 
-#####  设置静态资源
+### 打开模板渲染
+
+```go
+r.AutoRender = true
+```
+
+###  设置静态资源
 
 ```go
 r.Static("/static", "static")
 ```
 
-#####  演示代码
+### 设置favicon.ico
+
+```go
+r.StaticFile("favicon.ico","static/img/log.png") 
+```
+
+### 添加自定义模板函数
+```go
+r.AddFuncMap(key string,fn interface(){})
+```
+
+### 设置html模板符号 
+
+```go
+r.SetDelims("{{","}}")
+```
+
+### 向模板输出数据方法一：
+
+```go
+c.HTML("article/detail.html", gow.H{
+    "title":    "年薪百万的文科专业有哪些？",
+})
+```
+
+``` css
+<title>{{.title}}</title>
+```
+
+### 向模板输出数据方法二：
+
+```go
+c.Data["title"] = "年薪百万的文科专业有哪些？"
+c.HTML("article/defail.html")
+```
+
+``` css
+<title>{{.title}}</title>
+```
+
+###  演示代码
 
 *main.go*
 
@@ -63,7 +112,7 @@ func main() {
     r.Run()
 }
 
-//IndexHandler 首页handler
+//IndexHandler 首页
 func IndexHandler(c *gow.Context) {
     c.HTML("index.html", gow.H{
         "name":    "gow",
@@ -71,7 +120,7 @@ func IndexHandler(c *gow.Context) {
     })
 }
 
-//ArticleDetailHandler 文章详情页handler
+//ArticleDetailHandler 文件详情页
 func ArticleDetailHandler (c *gow.Context){
     c.HTML("article/detail.html", gow.H{
         "title":    "年薪百万的文科专业有哪些？",
@@ -79,52 +128,15 @@ func ArticleDetailHandler (c *gow.Context){
 }
 ```
 
-*views/index.html*
 
-```html
-<html>
-<head>
-    <title>{{hello .name}}</title>
-    <meta charset="utf-8"/>
-</head>
-<body>
-    <h2>{{.name}}</h2>
-    <hr>
-    <h5>{{.package}}</h5>
-</body>
-</html>
-```
 
-*views/article/detail.html*
-
-```html
-<html>
-<head>
-    <title>{{.title}}</title>
-    <meta charset="utf-8"/>
-    <style>
-        img{max-width:600px;}
-    </style>
-</head>
-<body>
-    <h2>{{.title}}</h2>
-    <hr>
-    <p><img src="/static/img/111.jpg"></p>
-    <p><img src="/static/img/222.jpg"></p>
-    <p><img src="/static/img/333.jpg"></p>
-</body>
-</html>
-```
-
-##### 运行
+#### 运行
 
 ```shell
 go run main.go
-或
-go build main.go -o app && ./app
 ```
 
-##### 浏览器访问
+#### 浏览器访问
 
 ```shell
 https://127.0.0.1:8080/

@@ -29,6 +29,11 @@ func GetMdFiles() (data []*MD) {
 		Title:    "快速开始",
 	})
 	data = append(data, &MD{
+		URL:      "/docs/config",
+		FilePath: "./md/config.md",
+		Title:    "配置文件",
+	})
+	data = append(data, &MD{
 		URL:      "/docs/html",
 		FilePath: "./md/html.md",
 		Title:    "做一个网站&HTML模板",
@@ -47,11 +52,6 @@ func GetMdFiles() (data []*MD) {
 		URL:      "/docs/router",
 		FilePath: "./md/router.md",
 		Title:    "路由详解",
-	})
-	data = append(data, &MD{
-		URL:      "/docs/config",
-		FilePath: "./md/config.md",
-		Title:    "配置文件",
 	})
 	data = append(data, &MD{
 		URL:      "/docs/cache",

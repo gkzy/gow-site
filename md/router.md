@@ -1,4 +1,6 @@
-#####  支持的HTTPMethod
+## 路由设置
+
+###  支持的请求方式
 ```go
 HTTPMethod = map[string]bool{
     "GET":     true,
@@ -12,27 +14,55 @@ HTTPMethod = map[string]bool{
 }
 ```
 
-##### 使用方式
+### 基础路由
 
-包括基本路由与分组
 
 ```go
-r := gow.Default()
+package main
 
-r.GET(path,handler)
-r.POST(path,handler)
-r.PUT(path,handler)
-r.DELETE(path,handler)
-r.PATCH(path,handler)
-r.OPTIONS(path,handler)
-r.HEAD(path,handler)
-r.TRACE(path,handler)
+import (
+    "github.com/gkzy/gow"
+)
+
+func main() {
+    r := gow.Default()
+
+    r.GET("/someGet", getting)
+    r.POST("/somePost", posting)
+    r.PUT("/somePut", putting)
+    r.DELETE("/someDelete", deleting)
+    r.PATCH("/somePatch", patching)
+    r.HEAD("/someHead", head)
+    r.OPTIONS("/someOptions", options)
+    r.Run()
+}
 ```
 
-##### 路由参数
+*典型例子*
 
 ```go
-r.Any("/article/:id", ArticleDetailHandler)
+package main
+
+import (
+    "github.com/gkzy/gow"
+)
+
+func main(){
+    r.GET("/", func(c *gow.Context) {
+        c.JSON(gow.H{
+            "code": 0,
+            "msg":  "success",
+        })
+    })
+}
+```
+
+
+#### 路由参数
+
+
+```go
+r.GET("/article/:id", handler)
 ```
 
 *获取 param 值*
@@ -42,7 +72,7 @@ id:=c.Param("id")
 ```
 
 
-##### 路由分组
+### 分组路由
 
 
 *main.go*
@@ -62,51 +92,22 @@ func main() {
         v1.DELETE("/user/:id", DeleteUser)
     }
 
+
+    v2 := r.Group("/v2")
+    {
+        v2.GET("/user/:id", GetUser)
+        v2.DELETE("/user/:id", DeleteUser)
+    }
+
     r.Run()
 }
 
 func GetUser(c *gow.Context) {
-    c.JSON(gow.H{
-        "nickname": "新月却泽滨",
-        "qq":       "301109640",
-    })
+ 
 }
 
 func DeleteUser(c *gow.Context) {
-    c.JSON(gow.H{
-        "code": 0,
-        "msg": "success",
-    })
-}
 
-```
-
-*Get*
-
-```shell
-curl -i http://127.0.0.1:8080/v1/user/1
-
-
-HTTP/1.1 200 OK
-Content-Type: application/json; charset=utf-8
-Date: Thu, 16 Jul 2020 05:55:16 GMT
-Content-Length: 46
-
-{
-  "nickname": "新月却泽滨",
-  "qq": "301109640"
-}
-
-```
-
-*Delete*
-
-```shell
-curl  -X "DELETE" http://127.0.0.1:8080/v1/user/1
-
-{
-    "code":0,
-    "msg":"success"
 }
 
 ```

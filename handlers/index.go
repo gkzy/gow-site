@@ -18,13 +18,14 @@ var (
 //IndexHandler 首页
 func IndexHandler(c *gow.Context) {
 	c.Redirect(302, "/docs/start")
+	//c.HTML("index.html")
 }
 
 //DocsHandler 读文件并渲染
 func DocsHandler(c *gow.Context) {
 
 	data := gow.H{}
-	url := c.Req.URL.String()
+	url := c.Request.URL.String()
 	mdFile := md.GetMDFile(url)
 	b, err := ioutil.ReadFile(mdFile.FilePath)
 	if err != nil {

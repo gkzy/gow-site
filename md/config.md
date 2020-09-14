@@ -1,18 +1,54 @@
-可以在conf目录中，指定配置文件
 
-使用到的库：
+## 参数配置
 
-```shell
-github.com/gkzy/gow/lib/config
+可以通过两种式来完成项目的基础配置
+
+### 1. 使用代码
+
+#### 运行模式
+```go
+r := gow.Default()
+r.RunMode = "dev"
 ```
 
-使用到的第三方ini配置库：
+#### 打开模板渲染
 
-```shell
-github.com/go-ini/ini
+```go
+r.AutoRender = true
 ```
 
-#### 有一项目：
+#### 设置模板目录
+
+```go
+r.SetView("views")
+```
+
+#### 静态资源
+> 图片、字体、css、js等
+
+```go
+r.Static("/static", "static")
+```
+#### 配置html函数调用时的符号
+```go
+r.SetDelims("{{","}}")  
+```
+
+#### 添加自定义模板Func
+
+```go
+r.AddFuncMap(key string, fn interface{})
+```
+#### session 开关
+
+```go
+r.SetSessionOn(true)
+```
+
+## 2. 配置文件
+
+
+### 目录结构
 
 ```shell
 PROJECT_NAME
@@ -34,70 +70,7 @@ PROJECT_NAME
 ├──main.go
 ```
 
-
-#### 仅使用app.conf时
-
-*app.conf*
-
-> 开发环境
-
-```shell
-app_name = gow-site
-run_mode = dev
-http_addr = ":8080"
-views = "views"
-auto_render = true
-recover_panic = true
-template_left = "{{"
-template_right = "}}"
-```
-
-> 生成环境
-
-```shell
-app_name = gow-site
-run_mode = prod  # 此处改为prod
-http_addr = ":8080"
-views = "views"
-auto_render = true
-recover_panic = true
-template_left = "{{"
-template_right = "}}"
-```
-
-#### 使用环境变量时
-
-*prod.app.conf*
-
-> 仅在使用 APP_RUN_MODE="prod" 时生效
-
-``` shell
-pp_name = gow-site
-run_mode = prod
-http_addr = ":8080"
-views = "views"
-auto_render = true
-recover_panic = true
-template_left = "{{"
-template_right = "}}"
-```
-
-*dev.app.conf*
-
-> 仅在使用 APP_RUN_MODE="dev" 时生效
-
-``` shell
-pp_name = gow-site
-run_mode = dev
-http_addr = ":8080"
-views = "views"
-auto_render = true
-recover_panic = true
-template_left = "{{"
-template_right = "}}"
-```
-
-#### 使用gow的统一配置
+### 使用gow的统一配置
 
 ```go
 package main
@@ -115,9 +88,81 @@ func main() {
 }
 ```
 
+
+#### 配置文件
+
+*app.conf*
+
+> 开发环境
+
+```shell
+app_name = gow-site
+run_mode = dev
+http_addr = 8080
+views = "views"
+auto_render = true
+recover_panic = true
+template_left = "{{"
+template_right = "}}"
+```
+
+> 生产环境
+
+```shell
+app_name = gow-site
+run_mode = prod  # 此处改为prod
+http_addr = 8080
+views = "views"
+auto_render = true
+recover_panic = true
+template_left = "{{"
+template_right = "}}"
+```
+
+#### 使用环境变量时
+
+*prod.app.conf*
+
+> 仅在使用 GOW_RUN_MODE="prod" 时生效
+
+``` shell
+pp_name = gow-site
+run_mode = prod
+http_addr = 8080
+views = "views"
+auto_render = true
+recover_panic = true
+template_left = "{{"
+template_right = "}}"
+```
+
+*dev.app.conf*
+
+> 仅在使用 GOW_RUN_MODE="dev" 时生效
+
+``` shell
+pp_name = gow-site
+run_mode = dev
+http_addr = 8080
+views = "views"
+auto_render = true
+recover_panic = true
+template_left = "{{"
+template_right = "}}"
+```
+
+
+
 ---
 
-#### 实现其他配置信息读取
+
+### 实现自定义配置
+
+使用的库:
+
+```sh
+github.com/gkzy/gow/lib/config
+```
 
 *app.conf*
 
@@ -134,10 +179,16 @@ maxidle = 50
 maxactive = 10000
 ```
 
+*redis配置信息读取*
+
 ```go
 package main
 
 import "github.com/gkzy/gow/lib/config"
+
+func main(){
+    GetConfig()
+}
 
 
 func GetConfig(){
@@ -149,12 +200,11 @@ func GetConfig(){
     password:=config.DefaultString("redis::password","123456")
     maxidle:=config.DefaultInt("redis::maxidle",50)
     maxactive:=config.DefaultInt("redis::maxactive",10000)
-
     fmt.Println(apiHost,host,prot,db,password,maxidle,maxactive)
 }
 ```
 
-#####  更多方法
+*更多方法*
 ```go
 
 //不带默认值
