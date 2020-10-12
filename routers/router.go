@@ -7,21 +7,11 @@ import (
 )
 
 // HTMLRouter
-func HTMLRouter(r *gow.Engine) *gow.Engine {
-	//静态文件
-	r.Static("/static","static")
-	r.StaticFile("favicon.ico,","./static/img/icon.png")
-
-	//错误处理
-	r.NoRoute(handlers.NotFoundHandler)
-
-	r.Any("/", handlers.IndexHandler)
-
+func HTMLRouter(r *gow.Engine)  {
+	r.GET("/", handlers.IndexHandler)
 	data := md.GetMdFiles()
-
 	for _, item := range data {
-		r.Any(item.URL, handlers.DocsHandler)
+		r.GET(item.URL, handlers.DocsHandler)
 	}
 
-	return r
 }

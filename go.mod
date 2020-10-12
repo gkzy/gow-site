@@ -1,6 +1,6 @@
 module github.com/gkzy/gow-site
 
-go 1.14
+go 1.15
 
 replace github.com/gkzy/gow => /Users/samsong/mygo/src/github.com/gkzy/gow
 

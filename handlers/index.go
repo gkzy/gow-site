@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/gkzy/gow"
 	"github.com/gkzy/gow-site/md"
+	"github.com/gkzy/gow/lib/logy"
 	"github.com/russross/blackfriday"
 	"io/ioutil"
 	"strings"
@@ -23,21 +24,18 @@ func IndexHandler(c *gow.Context) {
 
 //DocsHandler 读文件并渲染
 func DocsHandler(c *gow.Context) {
-
-	data := gow.H{}
 	url := c.Request.URL.String()
 	mdFile := md.GetMDFile(url)
 	b, err := ioutil.ReadFile(mdFile.FilePath)
 	if err != nil {
-		c.Status(404)
-		return
+		logy.Error(err)
 	}
 	mb := blackfriday.MarkdownCommon(b)
-	data["content"] = string(mb)
-	data["title"] = mdFile.Title
-	data["menu"] = builderMenus(url)
-	data["version"] = version
-	c.HTML("docs.html", data)
+	c.Data["content"] = string(mb)
+	c.Data["title"] = mdFile.Title
+	c.Data["menu"] = builderMenus(url)
+	c.Data["version"] = version
+	c.HTML("docs.html")
 }
 
 //builderMenus 右侧菜单
